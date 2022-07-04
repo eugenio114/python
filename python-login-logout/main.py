@@ -8,7 +8,8 @@ from werkzeug import generate_password_hash, check_password_hash
 def index():
 	if 'email' in session:
 		username = session['email']
-		return 'Logged in as ' + username + '<br>' + "<b><a href = '/logout'>click here to logout</a></b>"
+		return (f'Logged in as {username}<br>' +
+		        "<b><a href = '/logout'>click here to logout</a></b>")
 	return "You are not logged in <br><a href = '/login'></b>" + "click here to login</b></a>"
 	
 @app.route('/login')
@@ -27,8 +28,7 @@ def login_submit():
 		sql = "SELECT * FROM tbl_user WHERE user_email=%s"
 		sql_where = (_email,)
 		cursor.execute(sql, sql_where)
-		row = cursor.fetchone()
-		if row:
+		if row := cursor.fetchone():
 			if check_password_hash(row[3], _password):
 				session['email'] = row[1]
 				cursor.close() 

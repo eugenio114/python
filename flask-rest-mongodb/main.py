@@ -25,14 +25,12 @@ def add_user():
 @app.route('/users')
 def users():
 	users = mongo.db.user.find()
-	resp = dumps(users)
-	return resp
+	return dumps(users)
 		
 @app.route('/user/<id>')
 def user(id):
 	user = mongo.db.user.find_one({'_id': ObjectId(id)})
-	resp = dumps(user)
-	return resp
+	return dumps(user)
 
 @app.route('/update', methods=['PUT'])
 def update_user():
@@ -62,14 +60,11 @@ def delete_user(id):
 		
 @app.errorhandler(404)
 def not_found(error=None):
-    message = {
-        'status': 404,
-        'message': 'Not Found: ' + request.url,
-    }
-    resp = jsonify(message)
-    resp.status_code = 404
+	message = {'status': 404, 'message': f'Not Found: {request.url}'}
+	resp = jsonify(message)
+	resp.status_code = 404
 
-    return resp
+	return resp
 
 if __name__ == "__main__":
     app.run()

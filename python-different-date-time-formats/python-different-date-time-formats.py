@@ -3,7 +3,7 @@ import datetime
 
 print('Today: ', datetime.date.today())
 
-print("Time in seconds since the epoch: %s" %time.time())
+print(f"Time in seconds since the epoch: {time.time()}")
 print("Current date and time: ", datetime.datetime.now())
 print("Or Current date and time: ", datetime.datetime.now().strftime("%y-%m-%d-%H-%M"))
 

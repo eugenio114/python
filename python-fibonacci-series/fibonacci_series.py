@@ -3,10 +3,10 @@ def non_recur_fibo(n):
 	prev = 1
 	lastprev = 0
 	series = '0 1'
-	
-	for i in range(2, n):
+
+	for _ in range(2, n):
 		curr = prev + lastprev
-		series += ' ' + str(curr)
+		series += f' {str(curr)}'
 		lastprev = prev
 		prev = curr
 
@@ -28,4 +28,4 @@ print('Series (non-recursive): ', non_recur_fibo(n))
 
 print('Series (recursive): ', end = '')
 for i in range(n):
-	print(str(recur_fibo(i)) + ' ', end = '')
+	print(f'{str(recur_fibo(i))} ', end = '')

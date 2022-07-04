@@ -12,33 +12,33 @@ def x_chart():
 	conn = None
 	cursor = None
 
-	_json = request.json	
+	_json = request.json
 	start_date = _json['start']
 	end_date = _json['end']	
-	
+
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		
+
 		sql = "SELECT SUM(no_of_visits) total_visits, DATE(access_date) day_date FROM site_log WHERE DATE(access_date) >= %s AND DATE(access_date) <= %s GROUP BY DATE(access_date) ORDER BY DATE(access_date) DESC";
 
 		param = (start_date, end_date)
-		
+
 		cursor.execute(sql, param)
-		
+
 		rows = cursor.fetchall()
-		
-		data = []
-		
-		for row in rows:
-			data.append({'label':row['day_date'], 'value':int(row['total_visits'])})
+
+		data = [{
+		    'label': row['day_date'],
+		    'value': int(row['total_visits'])
+		} for row in rows]
 
 		resp = jsonify(data)
-		
+
 		resp.status_code = 200
-		
+
 		return resp
-	
+
 	except Exception as e:
 		print(e)
 

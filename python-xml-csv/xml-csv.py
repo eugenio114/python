@@ -25,8 +25,10 @@ for policy in root:
 	point_granularity = policy.find('point_granularity').text
 
 	#print('{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}'.format(policyId, statecode, eq_site_limit, hu_site_limit, fl_site_limit, fr_site_limit, tiv_2011, tiv_2012, eq_site_deductible, hu_site_deductible, fl_site_deductible, fr_site_deductible, point_latitude, point_longitude, line, construction, point_granularity))
-	
-	data.append('{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}'.format(policyId, statecode, eq_site_limit, hu_site_limit, fl_site_limit, fr_site_limit, tiv_2011, tiv_2012, eq_site_deductible, hu_site_deductible, fl_site_deductible, fr_site_deductible, point_latitude, point_longitude, line, construction, point_granularity))
+
+	data.append(
+	    f'{policyId}, {statecode}, {eq_site_limit}, {hu_site_limit}, {fl_site_limit}, {fr_site_limit}, {tiv_2011}, {tiv_2012}, {eq_site_deductible}, {hu_site_deductible}, {fl_site_deductible}, {fr_site_deductible}, {point_latitude}, {point_longitude}, {line}, {construction}, {point_granularity}'
+	)
 
 print (data)
 

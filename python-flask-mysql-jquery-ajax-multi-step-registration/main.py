@@ -15,13 +15,13 @@ def save_user_info():
 		phone = request.form['phone']
 		email = request.form['email']
 		address = request.form['address']
-		
+
 		# validate the received values
 		if name and dob and gender and password and phone and email and address and request.method == 'POST':
-		
+
 			#do not save password as a plain text
 			_hashed_password = generate_password_hash(password)
-			
+
 			# save user information
 			sql = "INSERT INTO user(name, password, email, phone, gender, dob, address) VALUES(%s, %s, %s, %s, %s, %s, %s)"
 			data = (name, _hashed_password, email, phone, gender, dob, address)
@@ -29,9 +29,9 @@ def save_user_info():
 			cursor = conn.cursor()
 			cursor.execute(sql, data)
 			conn.commit()
-			
+
 			flash('You registered successfully!')
-			
+
 			return redirect(url_for('.home'))
 		else:			
 			return 'Error while saving user information'

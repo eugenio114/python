@@ -18,25 +18,23 @@ def home():
 def login():
 	conn = None;
 	cursor = None;
-	
+
 	try:
 		_json = request.json
 		_username = _json['username']
 		_password = _json['password']
-		
+
 		# validate the received values
 		if _username and _password:
 			#check user exists			
 			conn = mysql.connect()
 			cursor = conn.cursor()
-			
+
 			sql = "SELECT * FROM user WHERE username=%s"
 			sql_where = (_username,)
-			
+
 			cursor.execute(sql, sql_where)
-			row = cursor.fetchone()
-			
-			if row:
+			if row := cursor.fetchone():
 				if check_password_hash(row[2], _password):
 					session['username'] = row[1]
 					#cursor.close()

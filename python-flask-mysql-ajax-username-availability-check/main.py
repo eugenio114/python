@@ -9,26 +9,20 @@ def username_check():
 	cursor = None
 	try:
 		username = request.form['username']
-		
+
 		# validate the received values
-		if username and request.method == 'POST':		
+		if username and request.method == 'POST':
 			conn = mysql.connect()
 			cursor = conn.cursor(pymysql.cursors.DictCursor)
 			cursor.execute("SELECT * FROM user WHERE login_username=%s", username)
-			row = cursor.fetchone()
-			
-			if row:
+			if row := cursor.fetchone():
 				resp = jsonify('<span style=\'color:red;\'>Username unavailable</span>')
-				resp.status_code = 200
-				return resp
 			else:
 				resp = jsonify('<span style=\'color:green;\'>Username available</span>')
-				resp.status_code = 200
-				return resp
 		else:
 			resp = jsonify('<span style=\'color:red;\'>Username is required field.</span>')
-			resp.status_code = 200
-			return resp
+		resp.status_code = 200
+		return resp
 	except Exception as e:
 		print(e)
 	finally:

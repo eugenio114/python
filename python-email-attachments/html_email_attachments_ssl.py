@@ -22,7 +22,7 @@ msg.add_alternative("""\
 
 with open("sample.jpg", 'rb') as img:
 	msg.get_payload()[1].add_related(img.read(), 'image', 'jpeg', cid=asparagus_cid)
-	
+
 with open("sample.pdf", 'rb') as fp:
 	pdf_data = fp.read()
 	ctype = 'application/octet-stream'
