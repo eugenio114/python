@@ -27,14 +27,14 @@ def record():
 	except KeyboardInterrupt:
 		print("Done recording")
 	except Exception as e:
-		print(str(e))
+		print(e)
 
 	sample_width = p.get_sample_size(FORMAT)
-	
+
 	stream.stop_stream()
 	stream.close()
 	p.terminate()
-	
+
 	return sample_width, frames	
 
 def record_to_file(file_path):

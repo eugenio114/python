@@ -5,10 +5,5 @@ results = results.decode("ascii")
 results = results.replace("\r","")
 ls = results.split("\n")
 ls = ls[4:]
-ssids = []
-x = 0
-while x < len(ls):
-    if x % 5 == 0:
-        ssids.append(ls[x])
-    x += 1
+ssids = [ls[x] for x in range(len(ls)) if x % 5 == 0]
 print(ssids)

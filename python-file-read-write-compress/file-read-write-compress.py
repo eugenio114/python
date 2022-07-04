@@ -1,10 +1,7 @@
 import os, gzip
 
 def read_file(fname, compress=False):
-    if compress:
-        f = gzip.GzipFile(fname, 'rb')
-    else:
-        f = open(fname, 'rb')
+    f = gzip.GzipFile(fname, 'rb') if compress else open(fname, 'rb')
     try:
         data = f.read()
     finally:
@@ -14,10 +11,7 @@ def read_file(fname, compress=False):
 def write_file(data, fname, compress=True):
     #print(os.getcwd())
 
-    if compress:
-        f = gzip.GzipFile(fname, 'wb')
-    else:
-        f = open(fname, 'wb')
+    f = gzip.GzipFile(fname, 'wb') if compress else open(fname, 'wb')
     try:
         f.write(data)
     finally:

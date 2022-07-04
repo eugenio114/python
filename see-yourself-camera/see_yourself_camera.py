@@ -8,19 +8,19 @@ vs = VideoStream(src=0).start()
 while True:
 	# grab the current frame
 	frame = vs.read()
-  
+
 	# if we are viewing a video and we did not grab a frame,
 	# then we have reached the end of the video
 	if frame is None:
 		break
-	
+
 	# show the frame to our screen
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
 
 	# if the 'q' or ESC key is pressed, stop the loop
-	if key == ord("q") or key == 27:
+	if key in [ord("q"), 27]:
 		break
- 
+
 # close all windows
 cv2.destroyAllWindows()

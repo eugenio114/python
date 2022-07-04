@@ -16,13 +16,13 @@ def download_report():
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor(pymysql.cursors.DictCursor)
-		
+
 		cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
 		result = cursor.fetchall()
 
 		output = io.StringIO()
 		writer = csv.writer(output)
-		
+
 		line = ['Emp Id, Emp First Name, Emp Last Name, Emp Designation']
 		writer.writerow(line)
 
@@ -31,7 +31,7 @@ def download_report():
 			writer.writerow(line)
 
 		output.seek(0)
-		
+
 		return Response(output, mimetype="text/csv", headers={"Content-Disposition":"attachment;filename=employee_report.csv"})
 	except Exception as e:
 		print(e)

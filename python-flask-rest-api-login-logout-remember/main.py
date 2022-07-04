@@ -8,7 +8,8 @@ from werkzeug import generate_password_hash, check_password_hash
 def index():
 	if 'email' in session:
 		username = session['email']
-		return 'Logged in as ' + username + '<br>' + "<b><a href = '/logout'>Click here to logout</a></b>"
+		return (f'Logged in as {username}<br>' +
+		        "<b><a href = '/logout'>Click here to logout</a></b>")
 	return "You are not logged in <br><a href = '/login'></b>" + "click here to login</b></a>"
 	
 @app.route('/login')
@@ -19,11 +20,11 @@ def login():
 def login_submit():
 	conn = None
 	cursor = None
-	
+
 	_email = request.form['inputEmail']
 	_password = request.form['inputPassword']
 	_remember = request.form.getlist('inputRemember')
-	
+
 	if 'email' in request.cookies:
 		username = request.cookies.get('email')
 		password = request.cookies.get('pwd')
@@ -34,14 +35,13 @@ def login_submit():
 		cursor.execute(sql, sql_where)
 		row = cursor.fetchone()
 		if row and check_password_hash(row[3], password):
-			print(username + ' ' + password)
+			print(f'{username} {password}')
 			session['email'] = row[2]
 			cursor.close()
 			conn.close()
 			return redirect('/')
 		else:
 			return redirect('/login')
-	# validate the received values
 	elif _email and _password:
 		#check user exists			
 		conn = mysql.connect()
@@ -49,8 +49,7 @@ def login_submit():
 		sql = "SELECT * FROM user WHERE user_email=%s"
 		sql_where = (_email,)
 		cursor.execute(sql, sql_where)
-		row = cursor.fetchone()
-		if row:
+		if row := cursor.fetchone():
 			if check_password_hash(row[3], _password):
 				session['email'] = row[2]
 				cursor.close() 
